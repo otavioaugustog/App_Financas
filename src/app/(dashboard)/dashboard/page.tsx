@@ -5,6 +5,7 @@ import { Plus } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { SummaryCards } from '@/components/dashboard/SummaryCards'
 import { ExpenseChart } from '@/components/dashboard/ExpenseChart'
+import { IncomeChart } from '@/components/dashboard/IncomeChart'
 import { MonthSelector } from '@/components/dashboard/MonthSelector'
 import { TransactionList } from '@/components/transactions/TransactionList'
 import { TransactionDialog } from '@/components/transactions/TransactionDialog'
@@ -53,10 +54,10 @@ export default function DashboardPage() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-slate-800">Dashboard</h1>
+          <h1 className="text-2xl font-bold text-foreground">Dashboard</h1>
           <p className="text-sm text-muted-foreground mt-0.5">Resumo financeiro mensal</p>
         </div>
-        <Button onClick={() => setDialogOpen(true)} className="bg-blue-600 hover:bg-blue-700 gap-2">
+        <Button onClick={() => setDialogOpen(true)} className="bg-blue-600 hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-400 dark:text-white gap-2">
           <Plus className="w-4 h-4" />
           <span className="hidden sm:inline">Nova transação</span>
         </Button>
@@ -74,15 +75,16 @@ export default function DashboardPage() {
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             <ExpenseChart transactions={transactions} />
+            <IncomeChart transactions={transactions} />
+          </div>
 
-            <div className="space-y-3">
-              <h2 className="text-base font-semibold text-slate-700">Últimas transações</h2>
-              <TransactionList
-                transactions={transactions.slice(0, 8)}
-                onUpdate={handleUpdate}
-                onDelete={handleDelete}
-              />
-            </div>
+          <div className="space-y-3">
+            <h2 className="text-base font-semibold text-foreground">Últimas transações</h2>
+            <TransactionList
+              transactions={transactions.slice(0, 8)}
+              onUpdate={handleUpdate}
+              onDelete={handleDelete}
+            />
           </div>
         </>
       )}
