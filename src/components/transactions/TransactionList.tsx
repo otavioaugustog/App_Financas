@@ -60,7 +60,7 @@ export function TransactionList({ transactions, onUpdate, onDelete }: Transactio
             <div className="flex items-center gap-2 flex-shrink-0 ml-2">
               <span
                 className={`font-semibold text-sm ${
-                  transaction.type === 'income' ? 'text-green-600' : 'text-red-500'
+                  transaction.type === 'income' ? 'text-green-600 dark:text-green-400' : 'text-red-500 dark:text-red-400'
                 }`}
               >
                 {transaction.type === 'income' ? '+' : '-'}
@@ -81,7 +81,7 @@ export function TransactionList({ transactions, onUpdate, onDelete }: Transactio
                     Editar
                   </DropdownMenuItem>
                   <DropdownMenuItem
-                    className="text-red-600"
+                    className="text-red-600 dark:text-red-400"
                     onClick={() => onDelete(transaction.id)}
                   >
                     <Trash2 className="mr-2 h-4 w-4" />

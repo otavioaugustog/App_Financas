@@ -15,15 +15,15 @@ export default function TransactionsPage() {
   const today = new Date()
   const [month, setMonth] = useState(today.getMonth())
   const [year, setYear] = useState(today.getFullYear())
-  const [categoryFilter, setCategoryFilter] = useState('all')
-  const [typeFilter, setTypeFilter] = useState('all')
+  const [categoryFilter, setCategoryFilter] = useState('')
+  const [typeFilter, setTypeFilter] = useState('')
   const [dialogOpen, setDialogOpen] = useState(false)
 
   const { transactions, loading, addTransaction, updateTransaction, deleteTransaction } = useTransactions({
     month,
     year,
-    category: categoryFilter,
-    type: typeFilter,
+    category: categoryFilter || 'all',
+    type: typeFilter || 'all',
   })
 
   const allCategories = [...INCOME_CATEGORIES, ...EXPENSE_CATEGORIES]
@@ -59,12 +59,12 @@ export default function TransactionsPage() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-slate-800">Transações</h1>
+          <h1 className="text-2xl font-bold text-foreground">Transações</h1>
           <p className="text-sm text-muted-foreground mt-0.5">
             {transactions.length} transação{transactions.length !== 1 ? 'ões' : ''}
           </p>
         </div>
-        <Button onClick={() => setDialogOpen(true)} className="bg-blue-600 hover:bg-blue-700 gap-2">
+        <Button onClick={() => setDialogOpen(true)} className="bg-blue-600 hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-400 dark:text-white gap-2">
           <Plus className="w-4 h-4" />
           <span className="hidden sm:inline">Nova transação</span>
         </Button>
@@ -74,20 +74,19 @@ export default function TransactionsPage() {
         <MonthSelector month={month} year={year} onChange={(m, y) => { setMonth(m); setYear(y) }} />
 
         <div className="flex gap-2 flex-1">
-          <Select value={typeFilter} onValueChange={(v) => setTypeFilter(v ?? 'all')}>
+          <Select value={typeFilter} onValueChange={(v) => setTypeFilter(v === 'all' ? '' : v)}>
             <SelectTrigger className="w-36">
-              <SelectValue placeholder="Tipo" />
+              <SelectValue placeholder="Tipo de transação" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="all">Todos os tipos</SelectItem>
               <SelectItem value="income">Receitas</SelectItem>
               <SelectItem value="expense">Despesas</SelectItem>
             </SelectContent>
           </Select>
 
-          <Select value={categoryFilter} onValueChange={(v) => setCategoryFilter(v ?? 'all')}>
+          <Select value={categoryFilter} onValueChange={(v) => setCategoryFilter(v === 'all' ? '' : v)}>
             <SelectTrigger className="w-44">
-              <SelectValue placeholder="Categoria" />
+              <SelectValue placeholder="Tipo de categoria" />
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="all">Todas as categorias</SelectItem>
