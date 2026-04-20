@@ -9,7 +9,7 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Alert, AlertDescription } from '@/components/ui/alert'
-import { TrendingUp } from 'lucide-react'
+import { TrendingUp, Mail } from 'lucide-react'
 
 export default function RegisterPage() {
   const router = useRouter()
@@ -41,19 +41,19 @@ export default function RegisterPage() {
       setLoading(false)
     } else {
       setSuccess(true)
-      setTimeout(() => router.push('/dashboard'), 2000)
+      setLoading(false)
     }
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-50 to-slate-100 p-4">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-background to-muted p-4">
       <div className="w-full max-w-md">
         <div className="flex justify-center mb-8">
           <div className="flex items-center gap-2">
             <div className="bg-blue-600 p-2 rounded-xl">
               <TrendingUp className="w-6 h-6 text-white" />
             </div>
-            <span className="text-2xl font-bold text-slate-800">FinançasPessoais</span>
+            <span className="text-2xl font-bold text-foreground">Finanças Pessoais</span>
           </div>
         </div>
 
@@ -72,9 +72,17 @@ export default function RegisterPage() {
                 </Alert>
               )}
               {success && (
-                <Alert className="border-green-200 bg-green-50">
-                  <AlertDescription className="text-green-700">
-                    Conta criada! Redirecionando...
+                <Alert className="border-blue-200 bg-blue-50">
+                  <Mail className="h-4 w-4 text-blue-600" />
+                  <AlertDescription className="text-blue-800">
+                    <p className="font-semibold mb-1">Confirme seu e-mail para continuar!</p>
+                    <p className="text-sm">
+                      Enviamos um link de confirmação para <strong>{email}</strong>.
+                      Acesse sua caixa de entrada e clique no link para ativar sua conta.
+                    </p>
+                    <p className="text-xs mt-2 text-blue-600">
+                      Não recebeu? Verifique também a pasta de spam.
+                    </p>
                   </AlertDescription>
                 </Alert>
               )}

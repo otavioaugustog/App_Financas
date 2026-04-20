@@ -34,14 +34,14 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-50 to-slate-100 p-4">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-background to-muted p-4">
       <div className="w-full max-w-md">
         <div className="flex justify-center mb-8">
           <div className="flex items-center gap-2">
             <div className="bg-blue-600 p-2 rounded-xl">
               <TrendingUp className="w-6 h-6 text-white" />
             </div>
-            <span className="text-2xl font-bold text-slate-800">FinançasPessoais</span>
+            <span className="text-2xl font-bold text-foreground">Finanças Pessoais</span>
           </div>
         </div>
 
