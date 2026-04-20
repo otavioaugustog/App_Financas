@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Plus } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { SummaryCards } from '@/components/dashboard/SummaryCards'
@@ -10,6 +10,7 @@ import { MonthSelector } from '@/components/dashboard/MonthSelector'
 import { TransactionList } from '@/components/transactions/TransactionList'
 import { TransactionDialog } from '@/components/transactions/TransactionDialog'
 import { useTransactions } from '@/hooks/useTransactions'
+import { supabase } from '@/lib/supabase'
 import { toast } from 'sonner'
 
 export default function DashboardPage() {
@@ -17,6 +18,14 @@ export default function DashboardPage() {
   const [month, setMonth] = useState(today.getMonth())
   const [year, setYear] = useState(today.getFullYear())
   const [dialogOpen, setDialogOpen] = useState(false)
+  const [firstName, setFirstName] = useState('')
+
+  useEffect(() => {
+    supabase.auth.getUser().then(({ data }) => {
+      const name = data.user?.user_metadata?.first_name
+      if (name) setFirstName(name)
+    })
+  }, [])
 
   const { transactions, loading, addTransaction, updateTransaction, deleteTransaction } = useTransactions({
     month,
@@ -54,7 +63,9 @@ export default function DashboardPage() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-foreground">Dashboard</h1>
+          <h1 className="text-2xl font-bold text-foreground">
+            {firstName ? `Olá, ${firstName}` : 'Dashboard'}
+          </h1>
           <p className="text-sm text-muted-foreground mt-0.5">Resumo financeiro mensal</p>
         </div>
         <Button onClick={() => setDialogOpen(true)} className="bg-blue-600 hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-400 dark:text-white gap-2">
