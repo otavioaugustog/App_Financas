@@ -74,7 +74,7 @@ export default function TransactionsPage() {
         <MonthSelector month={month} year={year} onChange={(m, y) => { setMonth(m); setYear(y) }} />
 
         <div className="flex gap-2 flex-1">
-          <Select value={typeFilter} onValueChange={(v) => setTypeFilter(v === 'all' ? '' : v)}>
+          <Select value={typeFilter} onValueChange={(v) => setTypeFilter(!v || v === 'all' ? '' : v)}>
             <SelectTrigger className="w-36">
               <SelectValue placeholder="Tipo de transação" />
             </SelectTrigger>
@@ -84,7 +84,7 @@ export default function TransactionsPage() {
             </SelectContent>
           </Select>
 
-          <Select value={categoryFilter} onValueChange={(v) => setCategoryFilter(v === 'all' ? '' : v)}>
+          <Select value={categoryFilter} onValueChange={(v) => setCategoryFilter(!v || v === 'all' ? '' : v)}>
             <SelectTrigger className="w-44">
               <SelectValue placeholder="Tipo de categoria" />
             </SelectTrigger>
